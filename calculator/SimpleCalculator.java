@@ -9,6 +9,7 @@ public class SimpleCalculator {
 
     private static Calculator calc;
 
+
     public static void main(String[] args) {
 
         JPanel windowContent = new JPanel();
@@ -29,29 +30,31 @@ public class SimpleCalculator {
         JComboBox operationSelector = new JComboBox(operations);
 
         Program program = new Program();
-        JComboBox<AbstractValueParser> typeSelector = new JComboBox<AbstractValueParser>();
+        JComboBox typeSelector = new JComboBox<AbstractValueParser>();
         for (int i = 0; i < program.getValueParsers().length; i++) {
             typeSelector.addItem(program.getValueParsers()[i]);
         }
         program.setCurrentValueParser((AbstractValueParser)typeSelector.getSelectedItem());
         typeSelector.addActionListener((event) -> {
-            if (event.getActionCommand() == "comboBoxChanged") {
+            if (event.getActionCommand().equals("comboBoxChanged")) {
                 program.setCurrentValueParser((AbstractValueParser)typeSelector.getSelectedItem());
             }
         });
 
+
         getResultButton.addActionListener((event) -> {
             try {
-                AbstractValue arg1 = program.getCurrentValueParser().parse(field1.getText());
-                AbstractValue arg2 = program.getCurrentValueParser().parse(field2.getText());
+                calc = new Calculator(program.getCurrentValueParser());
+                String arg1 = field1.getText();
+                String arg2 = field2.getText();
                 String op = (String)operationSelector.getSelectedItem();
-                AbstractValue res = calc.calculate(arg1, op, arg2);
+                String res = calc.calculate(arg1, op, arg2);
+                resultField.setText(res);
+                System.out.println(res);
             }
-            catch (ParseValueException exception) {
-                resultField.setText("I can't recognize the argument(s)");
-                return;
+            catch (Exception exception) {
+                System.out.println(exception.getLocalizedMessage());
             }
-
         });
 
         windowContent.add(label0);  windowContent.add(typeSelector);
@@ -62,14 +65,14 @@ public class SimpleCalculator {
 
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
-        JMenuItem createNew =  new JMenuItem("Do new calculation");
+        JMenuItem createNew =  new JMenuItem("New calculation");
         JMenuItem save = new JMenuItem("Save");
         menu.add(createNew); menu.add(save);
         menuBar.add(menu);
 
 
 
-        JFrame frame = new JFrame("My Calculator");
+        JFrame frame = new JFrame("My Sweet Calculator");
         frame.setContentPane(windowContent);
 
         JFrame.setDefaultLookAndFeelDecorated(true);
