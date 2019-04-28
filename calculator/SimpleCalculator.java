@@ -4,6 +4,9 @@ import calculator.console.Program;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class SimpleCalculator {
 
@@ -34,51 +37,51 @@ public class SimpleCalculator {
         for (int i = 0; i < program.getValueParsers().length; i++) {
             typeSelector.addItem(program.getValueParsers()[i]);
         }
-        program.setCurrentValueParser((AbstractValueParser)typeSelector.getSelectedItem());
+        program.setCurrentValueParser((AbstractValueParser) typeSelector.getSelectedItem());
         typeSelector.addActionListener((event) -> {
             if (event.getActionCommand().equals("comboBoxChanged")) {
-                program.setCurrentValueParser((AbstractValueParser)typeSelector.getSelectedItem());
+                program.setCurrentValueParser((AbstractValueParser) typeSelector.getSelectedItem());
             }
         });
 
 
-        getResultButton.addActionListener((event) -> {
+        getResultButton.addActionListener(event -> {
             try {
                 calc = new Calculator(program.getCurrentValueParser());
                 String arg1 = field1.getText();
                 String arg2 = field2.getText();
-                String op = (String)operationSelector.getSelectedItem();
+                String op = (String) operationSelector.getSelectedItem();
                 String res = calc.calculate(arg1, op, arg2);
                 resultField.setText(res);
                 System.out.println(res);
-            }
-            catch (ParseValueException exception) {
+            } catch (ParseValueException exception) {
                 resultField.setText("I can't recognize argument :(");
-            }
-            catch (Exception exception) {
+            } catch (Exception exception) {
                 System.out.println(exception.getLocalizedMessage());
             }
         });
 
-        windowContent.add(label0);  windowContent.add(typeSelector);
-        windowContent.add(label1);  windowContent.add(field1);
-        windowContent.add(label3);  windowContent.add(operationSelector);
-        windowContent.add(label2);  windowContent.add(field2);
-        windowContent.add(getResultButton);      windowContent.add(resultField);
+        windowContent.add(label0);
+        windowContent.add(typeSelector);
+        windowContent.add(label1);
+        windowContent.add(field1);
+        windowContent.add(label3);
+        windowContent.add(operationSelector);
+        windowContent.add(label2);
+        windowContent.add(field2);
+        windowContent.add(getResultButton);
+        windowContent.add(resultField);
 
         JMenuBar menuBar = new JMenuBar();
         JMenu menu = new JMenu("Menu");
-        JMenuItem createNew =  new JMenuItem("New calculation");
+        JMenuItem createNew = new JMenuItem("New calculation");
         JMenuItem save = new JMenuItem("Save");
-        menu.add(createNew); menu.add(save);
+        menu.add(createNew);
+        menu.add(save);
         menuBar.add(menu);
-
-
 
         JFrame frame = new JFrame("My Sweet Calculator");
         frame.setContentPane(windowContent);
-
-        // JFrame.setDefaultLookAndFeelDecorated(true);
 
         frame.getContentPane().setBackground(Color.pink);
         frame.setSize(400, 300);
@@ -89,6 +92,28 @@ public class SimpleCalculator {
         menuBar.setVisible(true);
 
 
+
+        save.addActionListener(event -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("File to save");
+
+            int userSelection = fileChooser.showSaveDialog(frame);
+
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+                try {
+                    FileWriter writer = new FileWriter(fileToSave);
+                    writer.write("The result of operation " + field1.getText() + operationSelector.getSelectedItem()
+                            + field2.getText() + " = " + resultField.getText());
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
+
 
 }
