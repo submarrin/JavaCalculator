@@ -4,7 +4,7 @@ package calculator;
 public class OperationNotSupportedException extends Exception {
 
 	public OperationNotSupportedException(String operation) {
-		super("Операция " + operation + " не поддерживается");
+		super("РћРїРµСЂР°С†РёСЏ " + operation + " РЅРµ РїРѕРґРґРµСЂР¶РёРІР°РµС‚СЃСЏ");
 	}
 
 }

@@ -19,10 +19,13 @@ public class Program {
 
 	public Program() {
 		scanner = new Scanner(System.in);
-		valueParsers = new AbstractValueParser[] { new IntegerValueParser(),
-				new RealValueParser(), new ComplexValueParser()};
+		valueParsers = new AbstractValueParser[] {
+		        new IntegerValueParser(),
+				new RealValueParser(),
+                new ComplexValueParser()
+		};
 		AbstractValueParser parser = inputValueParser();
-		System.out.println("Ðàáîòàåì ñ òèïîì '" + parser.getDataTypeName()
+		System.out.println("Ð Ð°Ð±Ð¾Ñ‚Ð°ÐµÐ¼ Ñ Ñ‚Ð¸Ð¿Ð¾Ð¼ '" + parser.getDataTypeName()
 				+ "'");
 		calc = new Calculator(parser);
 	}
@@ -33,13 +36,13 @@ public class Program {
 		if (choice >= 1 && choice <= valueParsers.length)
 			return valueParsers[choice - 1];
 		else {
-			System.out.println("Íåâåðíûé âûáîð!");
+			System.out.println("ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ñ‹Ð±Ð¾Ñ€!");
 			return inputValueParser();
 		}
 	}
 
 	private void showChoices() {
-		System.out.println("Âàì íóæíî âûáðàòü òèï äàííûõ. Âîçìîæíûå âàðèàíòû:");
+		System.out.println("Ð’Ð°Ð¼ Ð½ÑƒÐ¶Ð½Ð¾ Ð²Ñ‹Ð±Ñ€Ð°Ñ‚ÑŒ Ñ‚Ð¸Ð¿ Ð´Ð°Ð½Ð½Ñ‹Ñ…. Ð’Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ñ‹Ðµ Ð²Ð°Ñ€Ð¸Ð°Ð½Ñ‚Ñ‹:");
 		for (int i = 0; i < valueParsers.length; i++)
 			System.out.println("  " + (i + 1) + ". "
 					+ valueParsers[i].getDataTypeName());

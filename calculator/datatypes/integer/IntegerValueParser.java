@@ -15,7 +15,7 @@ public class IntegerValueParser implements AbstractValueParser {
     }
 
     public String getDataTypeName() {
-        final String s = "Целые числа";
+        final String s = "Р¦РµР»С‹Рµ С‡РёСЃР»Р°";
         return s;
     }
 

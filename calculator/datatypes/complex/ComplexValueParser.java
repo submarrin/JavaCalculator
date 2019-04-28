@@ -16,7 +16,7 @@ public class ComplexValueParser implements AbstractValueParser{
         try {
             System.out.println(value);
             ComplexValue compVal = new ComplexValue(getComplex(value));
-            System.out.println("число = " + compVal.getReal() + compVal.getImag());
+            System.out.println("С‡РёСЃР»Рѕ = " + compVal.getReal() + compVal.getImag());
             return compVal;
         } catch (NumberFormatException exception) {
             throw new ParseValueException();
@@ -24,14 +24,14 @@ public class ComplexValueParser implements AbstractValueParser{
     }
 
     public String getDataTypeName() {
-        return "Комплексные числа";
+        return "РљРѕРјРїР»РµРєСЃРЅС‹Рµ С‡РёСЃР»Р°";
     }
 
     private ComplexValue getComplex(String value){
         double real = 0;
         double imag = 0;
         // ("(([-+]?\d+\.?\d*|[-+]?\d*\.?\d+)\s*\+\s*([-+]?\d+\.?\d*|[-+]?\d*\.?\d+)i)")
-        // ("(((\\+|\\-)?)(\\d+(\\.\\d+)?))?((\\+|\\-)(\\d+(\\.\\d+)?)i)") было
+        // ("(((\\+|\\-)?)(\\d+(\\.\\d+)?))?((\\+|\\-)(\\d+(\\.\\d+)?)i)") Р±С‹Р»Рѕ
         Pattern pattern = Pattern.compile("(((\\+|\\-)?)(\\d+(\\.\\d+)?))?((\\+|\\-)(\\d+(\\.\\d+)?)i)");
         Matcher matcher = pattern.matcher(value);
         real = Double.parseDouble(matcher.group(1));

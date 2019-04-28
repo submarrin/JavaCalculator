@@ -3,9 +3,9 @@ package calculator;
 @SuppressWarnings("serial")
 public class ParseValueException extends Exception {
 	public ParseValueException() {
-		super("Неверный формат строки");
+		super("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ СЃС‚СЂРѕРєРё");
 	}
 	public ParseValueException(String details) {
-		super("Неверный формат строки. " + details);
+		super("РќРµРІРµСЂРЅС‹Р№ С„РѕСЂРјР°С‚ СЃС‚СЂРѕРєРё. " + details);
 	}
 }
