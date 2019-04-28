@@ -52,6 +52,9 @@ public class SimpleCalculator {
                 resultField.setText(res);
                 System.out.println(res);
             }
+            catch (ParseValueException exception) {
+                resultField.setText("I can't recognize argument :(");
+            }
             catch (Exception exception) {
                 System.out.println(exception.getLocalizedMessage());
             }
@@ -75,8 +78,9 @@ public class SimpleCalculator {
         JFrame frame = new JFrame("My Sweet Calculator");
         frame.setContentPane(windowContent);
 
-        JFrame.setDefaultLookAndFeelDecorated(true);
+        // JFrame.setDefaultLookAndFeelDecorated(true);
 
+        frame.getContentPane().setBackground(Color.pink);
         frame.setSize(400, 300);
         frame.setVisible(true);
 
@@ -87,7 +91,4 @@ public class SimpleCalculator {
 
     }
 
-    public void setCurrentParser(AbstractValueParser parser) {
-
-    }
 }
