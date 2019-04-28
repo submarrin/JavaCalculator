@@ -19,4 +19,8 @@ public class IntegerValueParser implements AbstractValueParser {
         return s;
     }
 
+    public String toString() {
+        return this.getDataTypeName();
+    }
+
 }

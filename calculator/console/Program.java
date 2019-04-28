@@ -11,23 +11,37 @@ import calculator.datatypes.real.RealValueParser;
 
 public class Program {
 
-	private final Scanner scanner;
-
-	private final Calculator calc;
-
+	private Scanner scanner;
+	private Calculator calc;
 	private AbstractValueParser[] valueParsers;
+	private AbstractValueParser currentValueParser;
+
+	public AbstractValueParser[] getValueParsers(){
+		return this.valueParsers;
+	}
 
 	public Program() {
-		scanner = new Scanner(System.in);
 		valueParsers = new AbstractValueParser[] {
 		        new IntegerValueParser(),
 				new RealValueParser(),
                 new ComplexValueParser()
 		};
-		AbstractValueParser parser = inputValueParser();
-		System.out.println("Работаем с типом '" + parser.getDataTypeName()
+	}
+
+	public void choiceParser() {
+		this.scanner = new Scanner(System.in);
+		this.setCurrentValueParser(inputValueParser());
+		System.out.println("Работаем с типом '" + this.getCurrentValueParser().getDataTypeName()
 				+ "'");
-		calc = new Calculator(parser);
+		this.calc = new Calculator(this.getCurrentValueParser());
+	}
+
+	public void setCurrentValueParser(AbstractValueParser currentValueParser) {
+		this.currentValueParser = currentValueParser;
+	}
+
+	public AbstractValueParser getCurrentValueParser() {
+		return currentValueParser;
 	}
 
 	private AbstractValueParser inputValueParser() {
@@ -51,6 +65,7 @@ public class Program {
 	public static void main(String args[]) {
 		try {
 			Program instance = new Program();
+			instance.choiceParser();
 			instance.run(args);
 		} catch (Exception e) {
 			e.printStackTrace(System.out);

@@ -17,4 +17,8 @@ public class RealValueParser implements AbstractValueParser {
     public String getDataTypeName() {
         return "Вещественные числа";
     }
+
+    public String toString() {
+        return this.getDataTypeName();
+    }
 }

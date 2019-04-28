@@ -31,4 +31,8 @@ public class ComplexValueParser implements AbstractValueParser{
         return new ComplexValue(real, img);
     }
 
+    public String toString() {
+        return this.getDataTypeName();
+    }
+
 }
