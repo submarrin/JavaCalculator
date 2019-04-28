@@ -2,9 +2,6 @@ package calculator.datatypes.complex;
 
 import calculator.AbstractValue;
 import calculator.DivisionByZeroException;
-import calculator.datatypes.real.RealValue;
-
-import java.awt.image.DataBufferUShort;
 
 public class ComplexValue implements AbstractValue {
     private final double realVal;
@@ -63,6 +60,18 @@ public class ComplexValue implements AbstractValue {
             throw new DivisionByZeroException();
         return new ComplexValue(((ComplexValue) this.mul(value)).getReal() / value.absVal(),
                 ((ComplexValue) this.mul(value)).getImag() / value.absVal());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof ComplexValue)) return false;
+        ComplexValue compVal = ((ComplexValue) obj);
+        return compareWithAccuracy(this.getReal(),compVal.getReal())
+                && compareWithAccuracy(this.getImag(),compVal.getImag());
+    }
+    private boolean compareWithAccuracy(double x, double y) {
+        double eps = Math.pow(10,-10);
+        return x > y - eps && x < y + eps;
     }
 
 }
